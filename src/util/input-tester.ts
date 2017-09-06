@@ -158,8 +158,6 @@ function testWriteValue<T>(input: BaseInput<T>, config: TestConfig, isInit: bool
   let OnTouchedCalled = 0;
   let ngModelValue: any;
 
-  const expectedOnTouched = (input.constructor.name === 'Checkbox' || input.constructor.name === 'Segment' ? 1 : 0);
-
   // Test ionChange
   let sub = input.ionChange.subscribe((ev: any) => {
     assertEqual(ionChangeCalled, 0, 'ionChange: internal error');
@@ -200,7 +198,7 @@ function testWriteValue<T>(input: BaseInput<T>, config: TestConfig, isInit: bool
       assertEqual(ionChangeCalled, 0, 'loop: ionChange error');
     }
     assertEqual(OnChangeCalled, 1, 'loop: OnChangeCalled was not called');
-    assertEqual(OnTouchedCalled, expectedOnTouched, 'loop: OnTouchedCalled is wrong');
+    assertEqual(OnTouchedCalled, 0, 'loop: OnTouchedCalled was called');
 
     OnTouchedCalled = OnChangeCalled = ionChangeCalled = 0;
 
@@ -225,7 +223,7 @@ function testWriteValue<T>(input: BaseInput<T>, config: TestConfig, isInit: bool
   input.value = null;
   assertEqual(input.value, config.defaultValue, 'null: wrong default value');
   assertEqual(OnChangeCalled, 1, 'null: OnChangeCalled was not called');
-  assertEqual(OnTouchedCalled, expectedOnTouched, 'null: OnTouchedCalled is wrong');
+  assertEqual(OnTouchedCalled, 0, 'null: OnTouchedCalled was called');
 
 
   input.registerOnChange(null);

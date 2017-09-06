@@ -126,6 +126,7 @@ export class Checkbox extends BaseInput<boolean> implements IonicTapInput, OnDes
     ev.preventDefault();
     ev.stopPropagation();
     this.value = !this.value;
+    this._fireTouched();
   }
 
   /**
@@ -141,16 +142,4 @@ export class Checkbox extends BaseInput<boolean> implements IonicTapInput, OnDes
   _inputUpdated() {
     this._item && this._item.setElementClass('item-checkbox-checked', this._value);
   }
-
-  /**
-   * @hidden
-   */
-  _setValue(val: boolean): boolean {
-    if (super._setValue(val)) {
-      this._fireTouched();
-      return true;
-    }
-    return false;
-  }
-
 }

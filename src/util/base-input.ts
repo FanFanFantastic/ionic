@@ -2,7 +2,7 @@ import { AfterContentInit, ElementRef, EventEmitter, Input, NgZone, Output, Rend
 import { ControlValueAccessor } from '@angular/forms';
 import { NgControl } from '@angular/forms';
 
-import { assert, deepCopy, isArray, isPresent, isString, isTrueProperty, isUndefined  } from './util';
+import { assert, deepCopy, isArray, isPresent, isString, isTrueProperty, isUndefined } from './util';
 import { IonicFormInput } from './form';
 import { Ion } from '../components/ion';
 import { Config } from '../config/config';
@@ -100,19 +100,10 @@ export class BaseInput<T> extends Ion implements CommonInput<T> {
     return this._value;
   }
   set value(val: T) {
-    this._setValue(val);
-  }
-
-  /**
-   * @hidden
-   */
-  _setValue(val: T): boolean {
     if (this._writeValue(val)) {
       this.onChange();
       this._fireIonChange();
-      return true;
     }
-    return false;
   }
 
   // 1. Updates the value
